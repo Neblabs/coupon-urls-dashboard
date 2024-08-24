@@ -1,38 +1,60 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#adminmenu img,
+.wp-menu-image,
+.wp-menu-image::before {
+    border-style: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#coupon_urls {
+    font-family: 'Epilogue', sans-serif;
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    top: 0;
+    z-index: 1000;
+
+    @apply p-4 
+           bg-gray-200;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#coupon_urls .cp-select__multi-value__label {
+    white-space: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#coupon_urls .cp-select__clear-indicator,
+#coupon_urls .cp-select__dropdown-indicator {
+    @apply px-1
 }
 
-.App-link {
-  color: #61dafb;
+#coupon_urls .cp-select__control {
+    @apply space-x-1 flex flex-row justify-between items-center min-h-10 text-left rounded-4 border-px border-gray-300 focus:border-blue-normal focus:outline-none cursor-default hover:cursor-pointer text-base select-none text-gray-650 bg-gray-100;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#coupon_urls .cp-select__multi-value {
+    @apply bg-gray-150 rounded-4;
+}
+
+#coupon_urls .coupon-urls-header-illustration > svg {
+        width: 80%;
+    left: 8%;
+    height: auto;
+    top: -62%;
+    position: relative;
+}
+
+#coupon_urls .coupon-urls-header-illustration.CouponToBeAddedNotificationMessage svg {
+    top: -15%;   
+}
+
+#coupon_urls .coupon-urls-header-illustration.Redirection svg {
+    top: -70%;
+    width: 71%;
+    left: 21%;
+}
+
+#coupon_urls .coupon-urls-header-illustration.CouponAddedToCartExtraNotificationMessage svg {
+    top: -38%;
 }
