@@ -29,6 +29,7 @@ class DashboardManager {
     open() 
     {
         this.beforeOpen()
+
         if (!this.state.isOpen) {
             this.state.isOpen = true;
             $(this.getMainElement()).removeClass('hidden')
@@ -51,7 +52,25 @@ class DashboardManager {
 
     getSwitchToClassicButtonElement() 
     {
-        return document.getElementById('cu-view-switch-to-classic')
+        const getElement = () => document.getElementById('cu-view-switch-to-classic')
+
+        let element = getElement()
+
+        if (!element) {
+
+            $('.woocommerce-layout__header-heading').prepend(`
+                <button id="cu-view-switch-to-classic" class="hidden flex flex-row items-center space-x-2 px-5 ml-[calc(var(--large-gap)*-1)] h-full border-r-px border-gray-200 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>
+                        ${__('Back', textDomain)}
+                    </span>
+                </button>
+            `) 
+        }
+
+        return getElement()
     }
 
     addDashboardButtons() 
@@ -65,16 +84,7 @@ class DashboardManager {
 
         $('#titlewrap').append(urlsButton)
 
-        $('.woocommerce-layout__header-heading').prepend(`
-            <button id="cu-view-switch-to-classic" class="hidden flex flex-row items-center space-x-2 px-5 ml-[calc(var(--large-gap)*-1)] h-full border-r-px border-gray-200 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                <span>
-                    ${__('Back', textDomain)}
-                </span>
-            </button>
-        `) 
+        //this.addBackToClassicElement()
     }
 
     createElements() {
@@ -111,10 +121,11 @@ class DashboardManager {
             this.open()
         })
 
-        this.getSwitchToClassicButtonElement().addEventListener('click', () => {
+        $('.woocommerce-layout__header-heading').on('click', () => {
             this.close()
         })
     }
+
     createSaveEvents() {
         document.querySelector('#publish.button').addEventListener('click', (event) => {
             this.beforeSaveEvents

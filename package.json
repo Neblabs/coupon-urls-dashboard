@@ -13,6 +13,7 @@
     "clipboard": "^2.0.11",
     "currency-symbol-map": "^5.0.1",
     "html-react-parser": "^1.4.8",
+    "immer": "^9.0.6",
     "panic-overlay": "^1.0.51",
     "react": "^17.0.2",
     "react-datepicker": "^4.4.0",

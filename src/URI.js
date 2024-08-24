@@ -1,11 +1,19 @@
 import { useSelector } from "react-redux";
-import { urls } from "./CouponURLs";
+import { __, initialState, urls } from "./CouponURLs";
 import QueryParameters from "./QueryParameters";
 import URIPath from "./URIPath";
 import URITypeMenu from "./URITypeMenu";
 import { useEffect, useState } from "react";
 import Enabled from "./Enabled";
 import classNames from "classnames";
+import {isEqual} from 'lodash';
+const canClickURI = (uri) => {
+    if (initialState.uri.type === 'path' && !initialState.uri.value?.trim()) {
+        return false
+    }
+
+    return isEqual(initialState.uri, uri)
+}
 
 const URI = () => {
     const queryParameters = useSelector(state => state.queryParameters)
@@ -52,7 +60,7 @@ const URI = () => {
                                 'hidden': !isCopying
                             })}>{__('Copied!')}</span>
                         </button>
-                        <a  href={fullURL}
+                        {canClickURI(uri)? <a  href={fullURL}
                             target="_blank"
                             rel="noreferrer"
                             className="flex items-center space-x-1 px-2 bg-[#6c90e0] text-gray-100 rounded-6 uppercase text-smaller-2 group h-4"
@@ -60,9 +68,21 @@ const URI = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-4 max-w-4 min-h-4 max-h-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                             </svg>
-                        </a>
+                        </a> : null}
+
                     </p>
                 </div>
+                {!canClickURI(uri) && <span className="absolute flex text-smaller-2 text-gray-400 -bottom-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-3 max-w-3 min-h-3 max-h-3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.99 7.5 8.24 3.75m0 0L4.49 7.5m3.75-3.75v16.499h11.25" />
+                    </svg>
+                    <div className="flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="min-w-3 max-w-3 min-h-3 max-h-3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        <span>{__('Save before testing')}</span>
+                    </div>
+                </span>}
                 <Enabled />
            </div>;
 }

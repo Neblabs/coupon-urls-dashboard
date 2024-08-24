@@ -25,7 +25,7 @@ const URIPath = () => {
 }
 
 const formatPath = (path, leaveLast = false) => {
-    path = path.replace(/\s/, '')
+    path = path.replace(/\s/, '-')
     if (path[0] === '/') {
         path = path.substring(1)
     }
