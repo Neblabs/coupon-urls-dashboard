@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "./actions/Actions";
 
@@ -7,6 +7,8 @@ const URIPath = () => {
     const [value, setvalue] = useState(uri.value);
     const dispatch = useDispatch();
     const inputRef = useRef(null)
+    const intervalID = useRef(null)
+    const [isFocused, setIsFocused] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const commitChange = dispatch.bind(this, actions.updateURIValue(formatPath(value, false)))
@@ -15,13 +17,25 @@ const URIPath = () => {
         if (uri.type === 'path') {
             setTimeout(() => inputRef.current?.focus(), 100)
         }
-    }, [uri.type])
+    }, [value, uri.type])
 
     useEffect(() => {
+        if (intervalID.current) {
+            clearInterval(intervalID.current)
+        }
+
         const id = setInterval(commitChange, 300)
 
+        intervalID.current = id
+
         return () => clearInterval(id)
-    }, [commitChange])
+    }, [value, commitChange])
+
+    useEffect(() => {
+        if (!isFocused && intervalID.current) {
+            clearInterval(intervalID.current)
+        }
+    }, [isFocused, uri.type])
 
     if (uri.type === 'homepage') {
         return '';
@@ -35,7 +49,13 @@ const URIPath = () => {
                        placeholder="custom/path/" 
                        value={value} 
                        onChange={(event) => setvalue(formatPath(event.target.value, true))} 
-                       onBlur={commitChange}
+                       onFocus={() => {
+                            setIsFocused(true)
+                       }}
+                       onBlur={() => {
+                            setIsFocused(false)
+                            commitChange()
+                       }}
                 />
             </p>;
 }
