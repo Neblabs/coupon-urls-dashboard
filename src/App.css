@@ -12,7 +12,7 @@
     font-family: 'Epilogue', sans-serif;
     position: absolute;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh + 32px);
     top: 0;
     z-index: 1000;
 

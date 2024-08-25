@@ -93,7 +93,7 @@ class DashboardManager {
         const urlParams = new URLSearchParams(window.location.search);
         const openedByDefault = urlParams.get('coupon-urls-opened') === 'true';
 
-        $('#wpbody-content').append(`<div id="coupon_urls" class="${openedByDefault || 'hidden'} left-0 top-0 z-[1000] w-full h-full relative bg-gray-200"><div>`)
+        $('#wpbody-content').append(`<div id="coupon_urls" class="${openedByDefault || 'hidden'} left-0 top-0 z-[1000] w-full relative bg-gray-200"><div>`)
 
         const form = document.querySelector('form#post')
 

@@ -60,6 +60,16 @@ const actions = {
         };
     },
 
+    setActions(actions) 
+    {
+        return {
+            type: 'actions/set',
+            payload: {
+                actions
+            },
+        };
+    },
+
     updateAction(type, optionType, value) 
     {
         return {

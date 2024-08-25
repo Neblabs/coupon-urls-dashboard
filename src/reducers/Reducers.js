@@ -12,6 +12,7 @@ export default class Reducers
             'URI/value/update': Reducers.onURIValueUpdate,
             'URI/type/update': Reducers.onURITypeUpdate,
             'actions/add': Reducers.onNewAction,
+            'actions/set': Reducers.onActionsSet,
             'actions/update': Reducers.onActionUpdate,
             'actions/delete': Reducers.onActionDelete,
             'options/isEnabled/update': Reducers.onIsEnabledOptionUpdate
@@ -59,6 +60,13 @@ export default class Reducers
     {
         return copyOfTheState(state, ({actions}) => {
             actions.push(createDefaultAction(type))
+        })
+    }
+
+    static onActionsSet(state, {payload: {actions: newActions}}) 
+    {
+        return copyOfTheState(state, (copyOfTheState) => {
+            copyOfTheState.actions = newActions
         })
     }
 
