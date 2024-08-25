@@ -14,10 +14,13 @@ const URIPath = () => {
     const commitChange = dispatch.bind(this, actions.updateURIValue(formatPath(value, false)))
 
     useEffect(() => {
+        if (!isFocused) {
+            return
+        }
         if (uri.type === 'path') {
             setTimeout(() => inputRef.current?.focus(), 100)
         }
-    }, [value, uri.type])
+    }, [isFocused, value, uri.type])
 
     useEffect(() => {
         if (intervalID.current) {
