@@ -121,7 +121,7 @@ class DashboardManager {
             this.open()
         })
 
-        $('.woocommerce-layout__header-heading').on('click', () => {
+        $('body').on('click', '.woocommerce-layout__header-heading #cu-view-switch-to-classic', () => {
             this.close()
         })
     }
